@@ -73,22 +73,42 @@ function makeWord(lettersObject) {
   return arr.join('');
 }
 
-/**
- * There is a queue for tickets to a popular movie.
- * The ticket seller sells one ticket at a time strictly in order and give the change.
- * The ticket costs 25. Customers pay with bills of 25, 50, or 100.
- * Initially the seller has no money for change.
- * Return true if the seller can sell tickets, false otherwise
- *
- * @param {number[]} queue - The array representing the bills each customer pays with
- * @return {boolean} - True if the seller can sell tickets to everyone, false otherwise
- *
- * @example
- *    sellTickets([25, 25, 50]) => true
- *    sellTickets([25, 100]) => false (The seller does not have enough money to give change.)
- */
-function sellTickets(/* queue */) {
-  throw new Error('Not implemented');
+function sellTickets(queue) {
+  const obj = {
+    count100: 0,
+    count50: 0,
+    count25: 0,
+  };
+
+  const canSell = queue.reduce((res, bill) => {
+    if (!res) return false;
+
+    if (bill === 25) {
+      obj.count25 += 1;
+    } else if (bill === 50) {
+      if (obj.count25 >= 1) {
+        obj.count25 -= 1;
+        obj.count50 += 1;
+      } else {
+        return false;
+      }
+    } else if (bill === 100) {
+      if (obj.count50 >= 1 && obj.count25 >= 1) {
+        obj.count50 -= 1;
+        obj.count25 -= 1;
+        obj.count100 += 1;
+      } else if (obj.count25 >= 3) {
+        obj.count25 -= 3;
+        obj.count100 += 1;
+      } else {
+        return false;
+      }
+    }
+
+    return true;
+  }, true);
+
+  return canSell;
 }
 
 function Rectangle(width, height) {
