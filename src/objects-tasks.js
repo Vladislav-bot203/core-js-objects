@@ -61,18 +61,16 @@ function makeImmutable(obj) {
   return Object.freeze(obj);
 }
 
-/**
- * Returns a word from letters whose positions are provided as an object.
- *
- * @param {Object} lettersObject - An object where keys are letters and values are arrays of positions
- * @return {string} - The constructed word
- *
- * @example
- *    makeWord({ a: [0, 1], b: [2, 3], c: [4, 5] }) => 'aabbcc'
- *    makeWord({ H:[0], e: [1], l: [2, 3, 8], o: [4, 6], W:[5], r:[7], d:[9]}) => 'HelloWorld'
- */
-function makeWord(/* lettersObject */) {
-  throw new Error('Not implemented');
+function makeWord(lettersObject) {
+  const arr = [];
+  const entries = Object.entries(lettersObject);
+  entries.forEach((entry) => {
+    const [key, positions] = entry;
+    positions.forEach((position) => {
+      arr[position] = key;
+    });
+  });
+  return arr.join('');
 }
 
 /**
