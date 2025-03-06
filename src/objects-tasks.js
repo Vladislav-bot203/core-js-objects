@@ -5,18 +5,6 @@
  * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object        *
  *                                                                                                *
  ************************************************************************************************ */
-
-/**
- * Returns shallow copy of an object.
- *
- * @param {Object} obj - an object to copy
- * @return {Object}
- *
- * @example
- *    shallowCopy({a: 2, b: 5}) => {a: 2, b: 5}
- *    shallowCopy({a: 2, b: { a: [1, 2, 3]}}) => {a: 2, b: { a: [1, 2, 3]}}
- *    shallowCopy({}) => {}
- */
 function shallowCopy(obj) {
   const copy = {};
   Object.assign(copy, obj);
@@ -28,9 +16,9 @@ function mergeObjects(objects) {
     const res = result;
     Object.entries(obj).forEach(([key, value]) => {
       if (res[key] !== undefined) {
-        res[key] += value; // Sum values if the key exists
+        res[key] += value;
       } else {
-        res[key] = value; // Add the key-value pair if it doesn't exist
+        res[key] = value;
       }
     });
     return res;
@@ -131,34 +119,22 @@ function fromJSON(proto, json) {
   return obj;
 }
 
-/**
- * Sorts the specified array by country name first and city name
- * (if countries are equal) in ascending order.
- *
- * @param {array} arr
- * @return {array}
- *
- * @example
- *    [
- *      { country: 'Russia',  city: 'Moscow' },
- *      { country: 'Belarus', city: 'Minsk' },
- *      { country: 'Poland',  city: 'Warsaw' },
- *      { country: 'Russia',  city: 'Saint Petersburg' },
- *      { country: 'Poland',  city: 'Krakow' },
- *      { country: 'Belarus', city: 'Brest' }
- *    ]
- *                      =>
- *    [
- *      { country: 'Belarus', city: 'Brest' },
- *      { country: 'Belarus', city: 'Minsk' },
- *      { country: 'Poland',  city: 'Krakow' },
- *      { country: 'Poland',  city: 'Warsaw' },
- *      { country: 'Russia',  city: 'Moscow' },
- *      { country: 'Russia',  city: 'Saint Petersburg' }
- *    ]
- */
-function sortCitiesArray(/* arr */) {
-  throw new Error('Not implemented');
+function sortCitiesArray(arr) {
+  return arr.sort((a, b) => {
+    if (a.country < b.country) {
+      return -1;
+    }
+    if (a.country > b.country) {
+      return 1;
+    }
+    if (a.city < b.city) {
+      return -1;
+    }
+    if (a.city > b.city) {
+      return 1;
+    }
+    return 0;
+  });
 }
 
 /**
