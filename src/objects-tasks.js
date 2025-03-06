@@ -57,24 +57,8 @@ function isEmptyObject(obj) {
   return Object.keys(obj).length === 0;
 }
 
-/**
- * Makes the source object immutable by preventing any changes to its properties.
- *
- * @param {Object} obj - The source object to make immutable
- * @return {Object} - The immutable version of the object
- *
- * @example
- *    const obj = {a: 1, b: 2};
- *    const immutableObj = makeImmutable(obj);
- *    immutableObj.a = 5;
- *    console.log(immutableObj) => {a: 1, b: 2}
- *    delete immutableObj.a;
- *    console.log(immutableObj) => {a: 1, b: 2}
- *    immutableObj.newProp = 'new';
- *    console.log(immutableObj) => {a: 1, b: 2}
- */
-function makeImmutable(/* obj */) {
-  throw new Error('Not implemented');
+function makeImmutable(obj) {
+  return Object.freeze(obj);
 }
 
 /**
