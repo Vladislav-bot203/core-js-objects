@@ -23,17 +23,6 @@ function shallowCopy(obj) {
   return copy;
 }
 
-/**
- * Merges array of objects into a single object. If there are overlapping keys, the values
- * should be summed.
- *
- * @param {Object[]} objects - The array of objects to merge
- * @return {Object} - The merged object
- *
- * @example
- *    mergeObjects([{a: 1, b: 2}, {b: 3, c: 5}]) => {a: 1, b: 5, c: 5}
- *    mergeObjects([]) => {}
- */
 function mergeObjects(objects) {
   return objects.reduce((result, obj) => {
     const res = result;
@@ -48,19 +37,6 @@ function mergeObjects(objects) {
   }, {});
 }
 
-/**
- * Removes a properties from an object.
- *
- * @param {Object} obj - The object from which to remove the property
- * @param {Array} keys - The keys of the properties to remove
- * @return {Object} - The object with the specified key removed
- *
- * @example
- *    removeProperties({a: 1, b: 2, c: 3}, ['b', 'c']) => {a: 1}
- *    removeProperties({a: 1, b: 2, c: 3}, ['d', 'e']) => {a: 1, b: 2, c: 3}
- *    removeProperties({name: 'John', age: 30, city: 'New York'}, ['age']) => {name: 'John', city: 'New York'}
- *
- */
 function removeProperties(obj, keys) {
   const link = obj;
   keys.forEach((key) => {
@@ -71,37 +47,14 @@ function removeProperties(obj, keys) {
   return obj;
 }
 
-/**
- * Compares two source objects. Returns true if the objects are equal and false otherwise.
- * There are no nested objects.
- *
- * @param {Object} obj1 - The first object to compare
- * @param {Object} obj2 - The second object to compare
- * @return {boolean} - True if the objects are equal, false otherwise
- *
- * @example
- *    compareObjects({a: 1, b: 2}, {a: 1, b: 2}) => true
- *    compareObjects({a: 1, b: 2}, {a: 1, b: 3}) => false
- */
 function compareObjects(obj1, obj2) {
   const stringOne = Object.entries(obj1).toString();
   const stringTwo = Object.entries(obj2).toString();
   return stringOne === stringTwo;
 }
 
-/**
- * Checks if the source object is empty.
- * Returns true if the object contains no enumerable own properties, false otherwise.
- *
- * @param {Object} obj - The object to check
- * @return {boolean} - True if the object is empty, false otherwise
- *
- * @example
- *    isEmptyObject({}) => true
- *    isEmptyObject({a: 1}) => false
- */
-function isEmptyObject(/* obj */) {
-  throw new Error('Not implemented');
+function isEmptyObject(obj) {
+  return Object.keys(obj).length === 0;
 }
 
 /**
